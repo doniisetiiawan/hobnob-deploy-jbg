@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  labels:
+    app: backend
+spec:
+  selector:
+    matchLabels:
+      app: backend
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: d4nyll/hobnob:0.1.0
+        ports:
+        - containerPort: 8080
+          name: api
+        - containerPort: 8100
+          name: docs
+        env:
+        - name: SWAGGER_UI_HOST
+          value: "localhost"
+        - name: SWAGGER_UI_PORT
+          value: "8100"
+        - name: SERVER_HOSTNAME
+          value: "http://localhost"
+        - name: SERVER_HOST
+          value: "localhost"
+        - name: SERVER_PORT
+          value: "8080"
+        - name: SERVER_PORT_DEV
+          value: "8080"
+        - name: SERVER_PORT_TEST
+          value: "8888"
+        - name: ELASTICSEARCH_VERSION
+          value: "6.3.2"
+        - name: ELASTICSEARCH_HOSTNAME
+          value: "http://elasticsearch"
+        - name: ELASTICSEARCH_PORT
+          value: "9200"
+        - name: ELASTICSEARCH_INDEX_TEST
+          value: "test"
+        - name: ELASTICSEARCH_INDEX_DEV
+          value: "hobnob"
+        - name: PUBLIC_KEY
+          value: "123"
+        - name: PRIVATE_KEY
+          value: "123"
